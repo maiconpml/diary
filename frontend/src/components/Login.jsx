@@ -28,7 +28,7 @@ const Login = () => {
             <div className="min-h-screen text-[--fontprimarycol]" style={{backgroundImage: `url(${background})`, backgroundRepeat: "no-repeat", backgroundSize: "100% 100%"}}>
                 <div className=" h-screen flex items-center justify-center ">
                     <div className="flex items-center justify-center rounded-md shadow-full w-1/2 h-1/2 min-w-min overflow-clip">
-                        <div className="relative bg-transparent backdrop-blur-md p-10 w-1/2 h-full min-w-min">
+                        <div className="relative bg-transparent backdrop-blur-lg p-10 w-1/2 h-full min-w-min">
                             <h1 className="text-6xl antialiased font-bold">DIARY</h1>
                             <span className="text-4xl ">Never forget a commitment again.</span><br/>
                             <span className="absolute bottom-3 text-xl">Coming soon to mobile!</span>
@@ -38,7 +38,7 @@ const Login = () => {
                             
 
                                 <label className="w-3/4 text-lg">Username:<br/>
-                                <input type="text" name="username-input" placeholder="user123" onChange={(e) => {setUsername(e.target.value)}} className="bg-[--primarycol] text-lg p-2 w-full mt-1 border-b border-[--fontprimarycol] focus:outline-0"/></label><br/>
+                                <input type="text" name="username-input" placeholder="Your username" onChange={(e) => {setUsername(e.target.value)}} className="bg-[--primarycol] text-lg p-2 w-full mt-1 border-b border-[--fontprimarycol] focus:outline-0"/></label><br/>
 
                                 <label className="w-3/4 text-lg">Password:<br/>
                                 <input type="password" name="password-input" placeholder="••••••••" onChange={(e) => {setPassword(e.target.value)}} className="bg-[--primarycol] text-lg p-2 w-full mt-1 border-b border-[--fontprimarycol] focus:outline-0"/></label><br/>
@@ -50,7 +50,7 @@ const Login = () => {
                             <button className="absolute bottom-3 text-lg mt-3" onClick={(e) => {
                                 e.preventDefault 
                                 navigate('/register')}}>
-                                Doesn't have an account? Singup
+                                Doesn't have an account? Signup
                             </button>
                         </div>
                         

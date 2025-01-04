@@ -15,8 +15,13 @@ const Register = () => {
     const handleRegister = async (e) => {
         e.preventDefault()
         if(password === confirmPassword){
-            const response = await register(username, email, firstName, lastName, password)
-            navigate('/login')
+            try{
+                await register(username, email, firstName, lastName, password)
+                alert('Register sucessful')
+                navigate('/login')
+            }catch{
+                alert('Error in registration')
+            }
         }else {
             alert("passwords must be equal")
         }

@@ -2,3 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+      --primarycol: #f3eedd;
+      --fontprimarycol: #2b261e;
+    }
+  }

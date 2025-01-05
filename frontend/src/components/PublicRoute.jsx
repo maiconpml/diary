@@ -14,7 +14,7 @@ const PublicRoute = () => {
 
     if(isAuth){
         return(
-            <Navigate to={'/'} />
+            <Navigate to={'/home'} />
         )
     }
 

@@ -14,7 +14,7 @@ const PrivateRoute = () => {
 
     if(!isAuth){
         return(
-            <Navigate to={'/login/'} />
+            <Navigate to={'/'} />
         )
     }
 

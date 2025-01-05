@@ -4,7 +4,7 @@ import { useAuth } from "../contexts"
 import { login } from "../services"
 import background from '../../public/praia2-bg.jpg'
 
-const Login = () => {
+const Login = ({handleChangeForm}) => {
 
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
@@ -16,7 +16,7 @@ const Login = () => {
         const data = await login(username, password)
         if(data.success){
             authLogin()
-            navigate('/')
+            navigate('/home')
         }else{
             alert("Invalid credentials")
         }
@@ -35,8 +35,8 @@ const Login = () => {
 
                     <button type="submit" className=" bg-[--fontprimarycol] text-[--primarycol] px-8 py-3 rounded-md">Login</button> 
 
-                            <button className="absolute bottom-3 text-lg mt-3" onClick={(e) => {
                 </form>
+                <button className="absolute bottom-3  mt-3" onClick={handleChangeForm}>
                     Doesn't have an account? Signup
                 </button>
             </div>

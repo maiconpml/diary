@@ -2,33 +2,32 @@ import {
     createBrowserRouter,
 } from "react-router-dom"
 
-import { Home, Login, PrivateRoute, PublicRoute, Register } from "../components"
+import { GuestHome, Home, Login, PrivateRoute, PublicRoute, Register } from "../components"
 
 export const router = createBrowserRouter(
     [
         {
             path: "/",
-            element: <PrivateRoute/>,
+            element: <PublicRoute />,
             children: [
                 {
                     path: "/",
-                    element: <Home/>,
-                },
+                    element: <GuestHome/>,
+                }
             ]
         },
         {
             path: "/",
-            element: <PublicRoute />,
+            element: <PrivateRoute/>,
             children: [
                 {
-                    path: "/login",
-                    element: <Login/>,
+                    path: "/home",
+                    element: <Home/>,
                 },
                 {
-                    path: "/register",
-                    element: <Register/>,
-                },   
+                    
+                }
             ]
-        }
+        },
     ]
 )

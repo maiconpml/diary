@@ -1,9 +1,7 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 import { register } from "../services"
 
-
-const Register = () => {
+const Register = ({handleChangeForm}) => {
     const [username, setUsername] = useState("")
     const [email, setEmail] = useState("")
     const [firstName, setFirstName] = useState("")
@@ -16,7 +14,6 @@ const Register = () => {
             try{
                 await register(username, email, firstName, password)
                 alert('Register sucessful')
-                navigate('/login')
                 setUsername("")
                 setEmail("")
                 setFirstName("")

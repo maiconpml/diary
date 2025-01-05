@@ -86,14 +86,15 @@ def logout(request):
         res.data = {'success':True}
         res.delete_cookie('access_token', path='/', samesite='None')
         res.delete_cookie('refresh_token', path='/', samesite='None')
+        res.status_code = status.HTTP_200_OK
         return res
     except:
-        return Response({'success':False})
+        return Response({'success':False}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['POST'])
 @permission_classes({IsAuthenticated})
 def is_authenticated(request):
-    return Response({'authenticated':True})
+    return Response({'authenticated':True}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes({AllowAny})
@@ -101,17 +102,19 @@ def register(request):
     serializer = MyUserRegistrationSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data)
-    return Response(serializer.error)@api_view(['PATCH'])
+        return Response({**serializer.data, 'success':True}, status=status.HTTP_201_CREATED)
+    return Response({**serializer.errors, "success":False}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['PATCH'])
 @permission_classes({IsAuthenticated})
 def update_appointment(request, pk):
     try:
         appointment = Appointment.objects.get(pk=pk)
     except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"success":False}, status=status.HTTP_404_NOT_FOUND)
     
     if(appointment.user.id != request.user.id):
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"success":False}, status=status.HTTP_401_UNAUTHORIZED)
     
     serializer = AppointmentSerializer(appointment, request.data, partial=True)
     if serializer.is_valid():
@@ -125,7 +128,7 @@ def update_appointment(request, pk):
 def get_appointments(request):
     appointments = Appointment.objects.filter(user_id=request.user.id)
     serializer = AppointmentSerializer(appointments, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response({**serializer.data, "success":True}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes({IsAuthenticated})
@@ -133,8 +136,8 @@ def create_appointment(request):
     serializer = AppointmentSerializer(data={**request.data, "user":request.user.id})
     if serializer.is_valid():
         serializer.save()
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({**serializer.data, 'success':True}, status=status.HTTP_201_CREATED)
+    return Response({**serializer.errors, "success":False}, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['DELETE'])
 @permission_classes({IsAuthenticated})
@@ -142,11 +145,11 @@ def delete_appointment(request, pk):
     try:
         appointment = Appointment.objects.get(pk=pk)
     except:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+        return Response({"success":False}, status=status.HTTP_404_NOT_FOUND)
 
     if(appointment.user.id != request.user.id):
-        return Response(status=status.HTTP_401_UNAUTHORIZED)
+        return Response({"success":False}, status=status.HTTP_401_UNAUTHORIZED)
 
     appointment.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
+    return Response({"success":True}, status=status.HTTP_204_NO_CONTENT)
 

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import MyUser
+from .models import MyUser, Appointment
 
 class MyUserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -26,3 +26,7 @@ class MyUserRegistrationSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
+class AppointmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Appointment
+        fields = ['title', 'description', 'date', 'user']

@@ -49,6 +49,5 @@ export const logout = async () => {
 
 export const getAuth = async () => {
     const response = await api.post('/authenticated/')
-    console.log(response)
     return response.data
 }

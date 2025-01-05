@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import CustomTokenObtainPairView, CustomRefreshTokenView, logout, is_authenticated, register
+from .views import CustomTokenObtainPairView, CustomRefreshTokenView, logout, is_authenticated, register, create_appointment, update_appointment, get_appointments, debug, delete_appointment
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -9,5 +9,9 @@ urlpatterns = [
     path('token/refresh/', CustomRefreshTokenView.as_view(), name='token_refresh'),
     path('logout/', logout),
     path('authenticated/', is_authenticated),
-    path('register/', register)
+    path('register/', register),
+    path('appointments/', get_appointments),
+    path('appointments/create/', create_appointment),
+    path('appointments/update/<int:pk>', update_appointment),
+    path('appointments/delete/<int:pk>', delete_appointment),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

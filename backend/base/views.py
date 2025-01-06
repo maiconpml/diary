@@ -1,11 +1,13 @@
+import datetime
 from django.shortcuts import render
+from django.utils.dateparse import parse_datetime
 
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from .serializer import MyUserRegistrationSerializer, AppointmentSerializer, MyUserProfileSerializer
-from .models import Appointment
+from .models import Appointment, MyUser
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,

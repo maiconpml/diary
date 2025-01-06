@@ -133,11 +133,25 @@ def get_appointments(request):
 @api_view(['POST'])
 @permission_classes({IsAuthenticated})
 def create_appointment(request):
-    serializer = AppointmentSerializer(data={**request.data, "user":request.user.id})
-    if serializer.is_valid():
-        serializer.save()
-        return Response({**serializer.data, 'success':True}, status=status.HTTP_201_CREATED)
-    return Response({**serializer.errors, "success":False}, status=status.HTTP_400_BAD_REQUEST)
+    try:
+        data = request.data
+        try:
+            user = MyUser.objects.get(id = request.user.id)
+        except:
+            return Response({"error":"user doesnt exists"}, status=status.HTTP_404_NOT_FOUND)
+
+        appointment = Appointment.objects.create(
+            title = data['title'],
+            description = data['description'],
+            date = parse_datetime(data['date']),
+            user = user
+        )
+
+        serializer = AppointmentSerializer(appointment, many=False)
+
+        return Response({**serializer.data}, status=status.HTTP_201_CREATED)
+    except:
+        return Response({'error':'not possible to create appointment'}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(['DELETE'])
 @permission_classes({IsAuthenticated})

@@ -1,3 +1,3 @@
-import { login, logout, register, getAuth} from './requests'
+import { login, logout, register, getAuth, getAppointments, getAppointmentsByDate, createAppointment} from './requests'
 
-export { login, logout, register, getAuth }
+export { login, logout, register, getAuth, getAppointments, getAppointmentsByDate, createAppointment}

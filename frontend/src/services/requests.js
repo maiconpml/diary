@@ -51,3 +51,18 @@ export const getAuth = async () => {
     const response = await api.post('/authenticated/')
     return response.data
 }
+
+export const getAppointments = async () => {
+    const response = await api.get('/appointments/')
+    return response.data
+}
+
+export const getAppointmentsByDate = async (year, month, day) => {
+    const response = await api.get(`/appointments/${year}/${month}/${day}`)
+    return response.data
+}
+
+export const createAppointment = async (title, description, date) => {
+    const response = await api.post('/appointments/create/', {title, description, date})
+    return response.data
+}

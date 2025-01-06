@@ -130,6 +130,23 @@ def get_appointments(request):
     serializer = AppointmentSerializer(appointments, many=True)
     return Response({**serializer.data, "success":True}, status=status.HTTP_200_OK)
 
+@api_view(['GET'])
+@permission_classes({IsAuthenticated})
+def get_appointments_by_date(request, year, month=None, day=None):
+
+    appointments = Appointment.objects.filter(user_id=request.user.id).filter(date__year=year)
+
+    if(month):
+        appointments = appointments.filter(date__month=month)
+
+    if(day):
+        appointments = appointments.filter(date__day=day)
+    
+    serializer = AppointmentSerializer(appointments, many=True)
+    
+    return Response(serializer.data, status=status.HTTP_200_OK)
+
+
 @api_view(['POST'])
 @permission_classes({IsAuthenticated})
 def create_appointment(request):

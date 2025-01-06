@@ -130,7 +130,7 @@ def update_appointment(request, pk):
 def get_appointments(request):
     appointments = Appointment.objects.filter(user_id=request.user.id)
     serializer = AppointmentSerializer(appointments, many=True)
-    return Response({**serializer.data, "success":True}, status=status.HTTP_200_OK)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['GET'])
 @permission_classes({IsAuthenticated})

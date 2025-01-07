@@ -1,4 +1,4 @@
-const Appointment = ({appointment}) => {
+const Appointment = ({appointment, setNewAppointment, showUpdateForm}) => {
 
     return (
         <>
@@ -12,6 +12,11 @@ const Appointment = ({appointment}) => {
                         {appointment.title} 
                     </h2>
                 </div>
+                <button className="bg-black h-2 w-2" onClick={() => {
+                    showUpdateForm()
+                    setNewAppointment(appointment)
+                    }}>
+                </button>
             </div>
             <div className="w-full h-[1px] bg-black opacity-25"/>
         </>

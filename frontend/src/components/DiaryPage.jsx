@@ -1,7 +1,7 @@
 import { months } from "../constants"
 import Appointment from "./Appointment"
 
-const DiaryPage = ({appointments, date}) => {
+const DiaryPage = ({appointments, date, setNewAppointment, showUpdateForm}) => {
     const header = <><span className="text-5xl font-extrabold">{String(months[date.getMonth()]).slice(0, 3).toUpperCase()}</span><span className="text-7xl font-extrabold">{date.getDate()}</span>
                 <div className="w-full h-[3px] bg-black rounded-full"></div></>
 
@@ -16,7 +16,7 @@ const DiaryPage = ({appointments, date}) => {
         )
     }
 
-    const formattedAppointments = appointments.map((appointment) => <Appointment key={appointment.id} appointment={appointment}/>)
+    const formattedAppointments = appointments.map((appointment) => <Appointment key={appointment.id} appointment={appointment} setNewAppointment={setNewAppointment} showUpdateForm={showUpdateForm}/>)
 
     return(
         <>

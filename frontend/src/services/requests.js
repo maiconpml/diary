@@ -62,7 +62,12 @@ export const getAppointmentsByDate = async (year, month, day) => {
     return response.data
 }
 
-export const createAppointment = async (title, description, date) => {
-    const response = await api.post('/appointments/create/', {title, description, date})
+export const createAppointment = async (appointment) => {
+    const response = await api.post('/appointments/create/', appointment)
+    return response.data
+}
+
+export const updateAppointment = async (appointment) => {
+    const response = await api.patch(`/appointments/update/${appointment.id}`, appointment)
     return response.data
 }

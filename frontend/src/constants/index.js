@@ -1,3 +1,3 @@
-import { months } from "./constants";
+import { months, dateToISOLocal } from "./constants";
 
-export {months}
+export {months, dateToISOLocal}
